@@ -21,23 +21,39 @@ class Tree {
     const mergedArray = [];
     let i = 0;
     let j = 0;
+    let lastPushed;
 
     while (i < sortedLeft.length && j < sortedRight.length) {
-      if (sortedLeft[i] < sortedRight[j]) {
-        mergedArray.push(sortedLeft[i++]);
-      } else if (sortedLeft[i] === sortedRight[j]) {
-        mergedArray.push(sortedLeft[i++]);
+      if (sortedLeft[i] < sortedRight[j] && sortedLeft[i] !== lastPushed) {
+        mergedArray.push(sortedLeft[i]);
+        lastPushed = sortedLeft[i];
+        i++;
+      } else if (
+        sortedLeft[i] === sortedRight[j] &&
+        sortedLeft[i] !== lastPushed
+      ) {
+        mergedArray.push(sortedLeft[i]);
+        lastPushed = sortedLeft[i];
+        i++;
         j++;
-      } else {
-        mergedArray.push(sortedRight[j++]);
+      } else if (sortedRight[j] !== lastPushed) {
+        mergedArray.push(sortedRight[j]);
+        lastPushed = sortedRight[j];
+        j++;
       }
     }
 
     for (; i < sortedLeft.length; i++) {
-      mergedArray.push(sortedLeft[i]);
+      if (sortedLeft[i] !== lastPushed) {
+        mergedArray.push(sortedLeft[i]);
+        lastPushed = sortedLeft[i];
+      }
     }
     for (; j < sortedRight.length; j++) {
-      mergedArray.push(sortedRight[j]);
+      if (sortedRight[j] !== lastPushed) {
+        mergedArray.push(sortedRight[j]);
+        lastPushed = sortedRight[j];
+      }
     }
 
     return mergedArray;
