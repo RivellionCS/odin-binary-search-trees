@@ -12,10 +12,10 @@ class Tree {
       return array;
     }
 
-    const leftHalf = array.slice(0, parseInt(array.length / 2));
+    const leftHalf = array.slice(0, Math.floor(array.length / 2));
     const sortedLeft = this.mergeSort(leftHalf);
 
-    const rightHalf = array.slice(parseInt(array.length / 2), array.length);
+    const rightHalf = array.slice(Math.floor(array.length / 2), array.length);
     const sortedRight = this.mergeSort(rightHalf);
 
     const mergedArray = [];
@@ -51,7 +51,9 @@ class Tree {
 }
 
 class Node {
-  constructor(data, leftChild, rightChild) {
+  constructor(data) {
     this.data = data;
+    this.leftChild = null;
+    this.rightChild = null;
   }
 }
