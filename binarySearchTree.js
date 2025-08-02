@@ -1,10 +1,36 @@
 class Tree {
-  constructor(root) {
-    this.root = buildTree(root);
+  constructor(array) {
+    this.root = this.buildTree(this.removeDuplicates(this.mergeSort(array)));
   }
 
   buildTree(array) {
-    const sortedArray = this.removeDuplicates(this.mergeSort(array));
+    // base cases
+    if (array.length === 1) {
+      return new Node(array[0]);
+    }
+
+    if (array.length === 0) {
+      return null;
+    }
+
+    // select the middle element as root
+    const root = new Node(array[Math.floor(array.length / 2)]);
+
+    // split the array into 2 halves recursively
+    const leftHalf = this.buildTree(
+      array.slice(0, Math.floor(array.length / 2))
+    );
+
+    const rightHalf = this.buildTree(
+      array.slice(Math.floor(array.length / 2) + 1, array.length)
+    );
+
+    // set the left and right children
+    root.leftChild = leftHalf;
+    root.rightChild = rightHalf;
+
+    // return root
+    return root;
   }
 
   mergeSort(array) {
