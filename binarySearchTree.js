@@ -7,16 +7,16 @@ class Tree {
     const sortedArray = mergeSort(array);
   }
 
-  mergesort(array) {
+  mergeSort(array) {
     if (array.length === 1) {
       return array;
     }
 
     const leftHalf = array.slice(0, parseInt(array.length / 2));
-    const sortedLeft = this.mergesort(leftHalf);
+    const sortedLeft = this.mergeSort(leftHalf);
 
     const rightHalf = array.slice(parseInt(array.length / 2), array.length);
-    const sortedRight = this.mergesort(rightHalf);
+    const sortedRight = this.mergeSort(rightHalf);
 
     const mergedArray = [];
     let i = 0;
