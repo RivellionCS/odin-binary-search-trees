@@ -3,31 +3,23 @@ class Tree {
     this.root = this.buildTree(this.removeDuplicates(this.mergeSort(array)));
   }
 
-  buildTree(array) {
-    // base cases
-    if (array.length === 1) {
-      return new Node(array[0]);
-    }
-
-    if (array.length === 0) {
+  buildTree(array, start = 0, end = array.length - 1) {
+    // base case
+    if (start > end) {
       return null;
     }
 
-    // select the middle element as root
-    const root = new Node(array[Math.floor(array.length / 2)]);
+    // find the middle element
+    let mid = start + Math.floor((end - start) / 2);
 
-    // split the array into 2 halves recursively
-    const leftHalf = this.buildTree(
-      array.slice(0, Math.floor(array.length / 2))
-    );
+    // create root node
+    let root = new Node(array[mid]);
 
-    const rightHalf = this.buildTree(
-      array.slice(Math.floor(array.length / 2) + 1, array.length)
-    );
+    // create left subtree
+    root.leftChild = this.buildTree(array, start, mid - 1);
 
-    // set the left and right children
-    root.leftChild = leftHalf;
-    root.rightChild = rightHalf;
+    // create right subtree
+    root.rightChild = this.buildTree(array, mid + 1, end);
 
     // return root
     return root;
