@@ -59,13 +59,13 @@ class Tree {
   }
 
   removeDuplicates(array) {
+    const uniqueArray = [];
     for (let i = 0; i < array.length; i++) {
-      if (array[i] === array[i + 1]) {
-        array.splice(i, 1);
-        i--;
+      if (array[i] !== array[i + 1]) {
+        uniqueArray.push(array[i]);
       }
     }
-    return array;
+    return uniqueArray;
   }
 }
 
