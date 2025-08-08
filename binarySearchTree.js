@@ -3,26 +3,30 @@ class Tree {
     this.root = this.buildTree(this.removeDuplicates(this.mergeSort(array)));
   }
 
-  buildTree(array, start = 0, end = array.length - 1) {
-    // base case
-    if (start > end) {
-      return null;
+  buildTree(array) {
+    return buildTreeRecursive(array, 0, array.length - 1);
+
+    function buildTreeRecursive(array, start, end) {
+      // base case
+      if (start > end) {
+        return null;
+      }
+
+      // find the middle element
+      let mid = start + Math.floor((end - start) / 2);
+
+      // create root node
+      let root = new Node(array[mid]);
+
+      // create left subtree
+      root.leftChild = buildTreeRecursive(array, start, mid - 1);
+
+      // create right subtree
+      root.rightChild = buildTreeRecursive(array, mid + 1, end);
+
+      // return root
+      return root;
     }
-
-    // find the middle element
-    let mid = start + Math.floor((end - start) / 2);
-
-    // create root node
-    let root = new Node(array[mid]);
-
-    // create left subtree
-    root.leftChild = this.buildTree(array, start, mid - 1);
-
-    // create right subtree
-    root.rightChild = this.buildTree(array, mid + 1, end);
-
-    // return root
-    return root;
   }
 
   mergeSort(array) {
@@ -103,11 +107,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
     return;
   }
-  if (node.right !== null) {
+  if (node.rightChild !== null) {
     prettyPrint(node.rightChild, `${prefix}${isLeft ? "│   " : "    "}`, false);
   }
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-  if (node.left !== null) {
+  if (node.leftChild !== null) {
     prettyPrint(node.leftChild, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
