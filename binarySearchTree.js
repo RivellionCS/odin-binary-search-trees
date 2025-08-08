@@ -72,26 +72,30 @@ class Tree {
     return uniqueArray;
   }
 
-  insert(value, root = this.root) {
-    // base case
-    if (root === null) {
-      return new Node(value);
-    }
+  insert(value) {
+    return insertRecursive(value, this.root);
 
-    // make sure duplicates aren't added
-    if (root.data === value) {
+    function insertRecursive(value, root) {
+      // base case
+      if (root === null) {
+        return new Node(value);
+      }
+
+      // make sure duplicates aren't added
+      if (root.data === value) {
+        return root;
+      }
+
+      // if value is less than the current node move left in the tree
+      // otherwise move right
+      if (value < root.data) {
+        root.leftChild = insertRecursive(value, root.leftChild);
+      } else if (value > root.data) {
+        root.rightChild = insertRecursive(value, root.rightChild);
+      }
+
       return root;
     }
-
-    // if value is less than the current node move left in the tree
-    // otherwise move right
-    if (value < root.data) {
-      root.leftChild = insert(value, root.leftChild);
-    } else if (value > root.data) {
-      root.rightChild = insert(value, root.rightChild);
-    }
-
-    return root;
   }
 }
 
