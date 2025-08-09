@@ -149,7 +149,7 @@ class Tree {
 
     function findValueRecursive(value, root) {
       // base case if value not found
-      if (root.leftChild === null && root.rightChild === null) {
+      if (root === null) {
         return null;
       }
 
@@ -159,10 +159,12 @@ class Tree {
       }
 
       // if value is greater than root we move right
-      // else we move left
       if (value > root.data) {
         return findValueRecursive(value, root.rightChild);
-      } else if (value < root.data) {
+      }
+
+      // if value is less than root we move left
+      if (value < root.data) {
         return findValueRecursive(value, root.leftChild);
       }
     }
@@ -196,4 +198,4 @@ tree.delete(8);
 
 prettyPrint(tree.root);
 
-console.log(tree.find(5));
+console.log(tree.find(9));
