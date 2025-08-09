@@ -117,13 +117,14 @@ class Tree {
 
       // If value to be searched is in a subtree
       if (root.data > value) {
-        root.left = deleteNode(value, root.left);
-      } else if (root.data < x) {
-        root.right = deleteNode(value, root.right);
+        root.leftChild = deleteNode(value, root.leftChild);
+      } else if (root.data < value) {
+        root.rightChild = deleteNode(value, root.rightChild);
       } else {
         // If root matches with the given value
 
         // Case when root has 0 children or 1 child
+        // When root only has right child
         if (root.leftChild === null) {
           return root.rightChild;
         }
@@ -135,8 +136,8 @@ class Tree {
 
         // When root has both children
         let successor = getSuccessor(root);
-        root.value = successor.value;
-        root.rightChild = deleteNode(successor.value, root.rightChild);
+        root.data = successor.data;
+        root.rightChild = deleteNode(successor.data, root.rightChild);
       }
 
       return root;
@@ -166,5 +167,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+
+tree.delete(8);
 
 prettyPrint(tree.root);
