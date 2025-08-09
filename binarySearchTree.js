@@ -97,6 +97,51 @@ class Tree {
       return root;
     }
   }
+
+  delete(value) {
+    return deleteNode(value, this.root);
+
+    function getSuccessor(node) {
+      node = node.rightChild;
+      while (node !== null && node.leftChild !== null) {
+        node = node.leftChild;
+      }
+      return node;
+    }
+
+    function deleteNode(value, root) {
+      // base case
+      if (root === null) {
+        return root;
+      }
+
+      // If value to be searched is in a subtree
+      if (root.data > value) {
+        root.left = deleteNode(value, root.left);
+      } else if (root.data < x) {
+        root.right = deleteNode(value, root.right);
+      } else {
+        // If root matches with the given value
+
+        // Case when root has 0 children or 1 child
+        if (root.leftChild === null) {
+          return root.rightChild;
+        }
+
+        // When root has only left child
+        if (root.rightChild === null) {
+          return root.leftChild;
+        }
+
+        // When root has both children
+        let successor = getSuccessor(root);
+        root.value = successor.value;
+        root.rightChild = deleteNode(successor.value, root.rightChild);
+      }
+
+      return root;
+    }
+  }
 }
 
 class Node {
