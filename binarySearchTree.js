@@ -169,6 +169,35 @@ class Tree {
       }
     }
   }
+
+  levelOrderForEach(callback) {
+    return levelOrderIterative(callback, this.root);
+
+    function levelOrderIterative(callback, root) {
+      // Incase the root is null
+      if (root === null) {
+        return;
+      }
+
+      // Create queue and push the root
+      let queue = [];
+      queue.push(root);
+
+      // While there is atleast one discovered node
+      // in the queue
+      while (queue.length > 0) {
+        let current = queue[0];
+        callback(current);
+        if (current.leftChild !== null) {
+          queue.push(current.leftChild);
+        }
+        if (current.rightChild !== null) {
+          queue.push(current.rightChild);
+        }
+        queue.shift();
+      }
+    }
+  }
 }
 
 class Node {
