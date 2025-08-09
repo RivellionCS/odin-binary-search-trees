@@ -143,6 +143,30 @@ class Tree {
       return root;
     }
   }
+
+  find(value) {
+    return findValueRecursive(value, this.root);
+
+    function findValueRecursive(value, root) {
+      // base case if value not found
+      if (root.leftChild === null && root.rightChild === null) {
+        return null;
+      }
+
+      // base case if value found
+      if (root.data === value) {
+        return root;
+      }
+
+      // if value is greater than root we move right
+      // else we move left
+      if (value > root.data) {
+        return findValueRecursive(value, root.rightChild);
+      } else if (value < root.data) {
+        return findValueRecursive(value, root.leftChild);
+      }
+    }
+  }
 }
 
 class Node {
@@ -171,3 +195,5 @@ const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.delete(8);
 
 prettyPrint(tree.root);
+
+console.log(tree.find(5));
