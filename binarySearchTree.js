@@ -173,6 +173,8 @@ class Tree {
   levelOrderForEach(callback) {
     return levelOrderIterative(callback, this.root);
 
+    // return levelOrderRecursive(callback, [this.root]);
+
     function levelOrderIterative(callback, root) {
       // Incase the root is null
       if (root === null) {
@@ -195,6 +197,26 @@ class Tree {
           queue.push(current.rightChild);
         }
         queue.shift();
+      }
+    }
+
+    function levelOrderRecursive(callback, queue) {
+      // Base case
+      if (queue.length === 0) {
+        return;
+      }
+
+      // Recursive case
+      if (queue.length > 0) {
+        let current = queue.shift();
+        callback(current);
+        if (current.leftChild !== null) {
+          queue.push(current.leftChild);
+        }
+        if (current.rightChild !== null) {
+          queue.push(current.rightChild);
+        }
+        return levelOrderRecursive(callback, queue);
       }
     }
   }
@@ -221,10 +243,14 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+function printNodeData(node) {
+  console.log(node.data);
+}
+
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
 tree.delete(8);
 
 prettyPrint(tree.root);
 
-console.log(tree.find(9));
+tree.levelOrderForEach(printNodeData);
