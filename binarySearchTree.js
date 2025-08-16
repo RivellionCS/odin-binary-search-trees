@@ -288,6 +288,29 @@ class Tree {
     }
   }
 
+  height(value) {
+    const node = this.find(value);
+
+    if (node === null) {
+      return null;
+    }
+
+    return heightRecursive(node);
+
+    function heightRecursive(root) {
+      // base case
+      if (root === null) {
+        return -1;
+      }
+
+      // recursive case
+      let leftTreeHeight = heightRecursive(root.leftChild);
+      let rightTreeHeight = heightRecursive(root.rightChild);
+
+      return 1 + Math.max(leftTreeHeight, rightTreeHeight);
+    }
+  }
+
   depth(value) {
     return depthRecursive(value, this.root, 0);
 
@@ -300,6 +323,7 @@ class Tree {
         return currentDepth;
       }
 
+      // recursive case
       if (value < root.data) {
         currentDepth++;
         return depthRecursive(value, root.leftChild, currentDepth);
@@ -344,4 +368,4 @@ prettyPrint(tree.root);
 
 //tree.postOrderForEach(printNodeData);
 
-console.log(tree.depth(9));
+console.log(tree.height(9));
