@@ -370,6 +370,16 @@ class Tree {
 
     return balancedRecursive(this.root);
   }
+
+  rebalance() {
+    let newArray = [];
+    function fillArray(node) {
+      newArray.push(node.data);
+    }
+    this.inOrderForEach(fillArray);
+    console.log(newArray);
+    this.root = this.buildTree(newArray);
+  }
 }
 
 class Node {
@@ -405,5 +415,11 @@ tree.delete(7);
 prettyPrint(tree.root);
 
 //tree.postOrderForEach(printNodeData);
+
+console.log(tree.isBalanced());
+
+tree.rebalance();
+
+prettyPrint(tree.root);
 
 console.log(tree.isBalanced());
