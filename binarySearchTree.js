@@ -1,3 +1,5 @@
+export { Tree };
+
 class Tree {
   constructor(array) {
     this.root = this.buildTree(this.removeDuplicates(this.mergeSort(array)));
@@ -377,7 +379,6 @@ class Tree {
       newArray.push(node.data);
     }
     this.inOrderForEach(fillArray);
-    console.log(newArray);
     this.root = this.buildTree(newArray);
   }
 }
@@ -402,24 +403,3 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     prettyPrint(node.leftChild, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 };
-
-function printNodeData(node) {
-  console.log(node.data);
-}
-
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-
-tree.delete(5);
-tree.delete(7);
-
-prettyPrint(tree.root);
-
-//tree.postOrderForEach(printNodeData);
-
-console.log(tree.isBalanced());
-
-tree.rebalance();
-
-prettyPrint(tree.root);
-
-console.log(tree.isBalanced());
