@@ -219,6 +219,59 @@ class Tree {
       }
     }
   }
+
+  preOrderForEach(callback) {
+    return preOrderRecursive(callback, this.root);
+
+    function preOrderRecursive(callback, root) {
+      // base case
+      if (root === null) {
+        return;
+      }
+      // visit root
+      callback(root);
+      // visit left subtree
+      preOrderRecursive(callback, root.leftChild);
+      // visit right subtree
+      preOrderRecursive(callback, root.rightChild);
+    }
+  }
+
+  inOrderForEach(callback) {
+    return inOrderRecursive(callback, this.root);
+
+    function inOrderRecursive(callback, root) {
+      // base case
+      if (root === null) {
+        return;
+      }
+
+      // visit left subtree
+      inOrderRecursive(callback, root.leftChild);
+      // visit root
+      callback(root);
+      // visit rightsubtree
+      inOrderRecursive(callback, root.rightChild);
+    }
+  }
+
+  postOrderForEach(callback) {
+    return postOrderRecursive(callback, this.root);
+
+    function postOrderRecursive(callback, root) {
+      // base case
+      if (root === null) {
+        return null;
+      }
+
+      // visit left subtree
+      postOrderRecursive(callback, root.leftChild);
+      // visit right subtree
+      postOrderRecursive(callback, root.rightChild);
+      // visit root
+      callback(root);
+    }
+  }
 }
 
 class Node {
@@ -252,4 +305,4 @@ tree.delete(8);
 
 prettyPrint(tree.root);
 
-tree.levelOrderForEach(printNodeData);
+tree.postOrderForEach(printNodeData);
