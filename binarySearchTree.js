@@ -188,7 +188,7 @@ class Tree {
       // While there is atleast one discovered node
       // in the queue
       while (queue.length > 0) {
-        let current = queue[0];
+        let current = queue.shift();
         callback(current);
         if (current.leftChild !== null) {
           queue.push(current.leftChild);
@@ -196,7 +196,6 @@ class Tree {
         if (current.rightChild !== null) {
           queue.push(current.rightChild);
         }
-        queue.shift();
       }
     }
 
