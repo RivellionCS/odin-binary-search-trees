@@ -287,6 +287,28 @@ class Tree {
       callback(root);
     }
   }
+
+  depth(value) {
+    return depthRecursive(value, this.root, 0);
+
+    function depthRecursive(value, root, currentDepth) {
+      // base cases
+      if (root === null) {
+        return null;
+      }
+      if (root.data === value) {
+        return currentDepth;
+      }
+
+      if (value < root.data) {
+        currentDepth++;
+        return depthRecursive(value, root.leftChild, currentDepth);
+      } else {
+        currentDepth++;
+        return depthRecursive(value, root.rightChild, currentDepth);
+      }
+    }
+  }
 }
 
 class Node {
@@ -320,4 +342,6 @@ tree.delete(8);
 
 prettyPrint(tree.root);
 
-tree.postOrderForEach(printNodeData);
+//tree.postOrderForEach(printNodeData);
+
+console.log(tree.depth(9));
