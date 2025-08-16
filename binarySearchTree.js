@@ -333,6 +333,43 @@ class Tree {
       }
     }
   }
+
+  isBalanced() {
+    const balancedRecursive = (root) => {
+      // base case
+      if (root === null) {
+        return true;
+      }
+
+      // recursive case
+      let leftTreeHeight;
+      let rightTreeHeight;
+      if (root.leftChild !== null) {
+        leftTreeHeight = this.height(root.leftChild.data);
+      } else {
+        leftTreeHeight = -1;
+      }
+      if (root.rightChild !== null) {
+        rightTreeHeight = this.height(root.rightChild.data);
+      } else {
+        rightTreeHeight = -1;
+      }
+      if (Math.abs(leftTreeHeight - rightTreeHeight) > 1) {
+        return false;
+      } else {
+        if (
+          balancedRecursive(root.leftChild) &&
+          balancedRecursive(root.rightChild)
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    };
+
+    return balancedRecursive(this.root);
+  }
 }
 
 class Node {
@@ -362,10 +399,11 @@ function printNodeData(node) {
 
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-tree.delete(8);
+tree.delete(5);
+tree.delete(7);
 
 prettyPrint(tree.root);
 
 //tree.postOrderForEach(printNodeData);
 
-console.log(tree.height(9));
+console.log(tree.isBalanced());
