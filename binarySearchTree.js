@@ -171,6 +171,9 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("function expects a callback function");
+    }
     return levelOrderIterative(callback, this.root);
 
     // return levelOrderRecursive(callback, [this.root]);
@@ -221,6 +224,10 @@ class Tree {
   }
 
   preOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("function expects a callback function");
+    }
+
     return preOrderRecursive(callback, this.root);
 
     function preOrderRecursive(callback, root) {
@@ -238,6 +245,10 @@ class Tree {
   }
 
   inOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("function expects a callback function");
+    }
+
     return inOrderRecursive(callback, this.root);
 
     function inOrderRecursive(callback, root) {
@@ -256,6 +267,10 @@ class Tree {
   }
 
   postOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("function expects a callback function");
+    }
+
     return postOrderRecursive(callback, this.root);
 
     function postOrderRecursive(callback, root) {
